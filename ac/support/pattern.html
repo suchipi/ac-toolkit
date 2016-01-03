@@ -1,71 +1,184 @@
 <link rel="import" href="behaviors/dynamic-svg-generator.html">
 
-<script>
-  Polymer({
-    'is': "ac-pattern",
-    behaviors: [
-      AC.Behavior.DynamicSVGGenerator
-    ],
-    properties: {
-      name: {
-        type: String,
-        value: "diagonal-stripe",
-        observer: "_changed"
-      },
-      backgroundColor: { // usually background color
-        type: String,
-        value: "white",
-        observer: "_changed"
-      },
-      foregroundColor: { // usually foreground color
-        type: String,
-        value: "black",
-        observer: "_changed"
-      },
-
-      // auxiliary colors to be used as needed by the pattern
-      auxColorA: {
-        type: String,
-        value: "black",
-        observer: "_changed"
-      },
-      auxColorB: {
-        type: String,
-        value: "black",
-        observer: "_changed"
+<dom-module id="ac-pattern">
+  <template>
+    <style>
+      @keyframes ac-pattern-scroll-down-right {
+        from {
+          background-position: 0 0;
+        } to {
+          background-position: 100vw 100vh;
+        }
       }
-    },
 
-    "diagonal-stripe": function svg() {
-      return "" +
-        "<rect width='10' height='10' fill='" + this.backgroundColor + "' />" +
-        "<path d='M-1,1 l2,-2" +
-                 "M0,10 l10,-10" +
-                 "M9,11 l2,-2' stroke='" + this.foregroundColor + "' stroke-width='3' />";
-    },
+      @keyframes ac-pattern-scroll-down-left {
+        from {
+          background-position: 100vw 0;
+        } to {
+          background-position: 0 100vh;
+        }
+      }
 
-    "houndstooth": function svg() {
-      return "" +
-        "<rect width='10' height='10' fill='" + this.backgroundColor + "' />" +
-        "<path d='M0 0L4 4' stroke='" + this.foregroundColor + "' fill='" + this.foregroundColor + "' stroke-width='1'/>" +
-        "<path d='M2.5 0L5 2.5L5 5L9 9L5 5L10 5L10 0' stroke='" + this.auxColorA + "' fill='" + this.auxColorA + "' stroke-width='1'/>" +
-        "<path d='M5 10L5 7.5L7.5 10' stroke='" + this.auxColorB + "' fill='" + this.auxColorB + "' stroke-width='1'/>";
-    },
+      @keyframes ac-pattern-scroll-up-right {
+        from {
+          background-position: 0 100vh;
+        } to {
+          background-position: 100vw 0;
+        }
+      }
 
-    "subtle-patch": function svg() {
-      return "" +
-        "<rect width='10' height='10' fill='" + this.backgroundColor + "' />" + 
-        "<rect x='4' y='4' width='2' height='2' fill='" + this.foregroundColor + "' />";
-    },
+      @keyframes ac-pattern-scroll-up-left {
+        from {
+          background-position: 100vw 100vh;
+        } to {
+          background-position: 0 0;
+        }
+      }
 
-    svgAttributes: {width: 10, height: 10},
-    svg: function(){return "";},
+      @keyframes ac-pattern-scroll-up {
+        from {
+          background-position: 0 100vh;
+        } to {
+          background-position: 0 0;
+        }
+      }
 
-    _changed: function _changed() {
-      if (!(this.name && this.backgroundColor && this.foregroundColor && this.auxColorA && this.auxColorB)) return;
+      @keyframes ac-pattern-scroll-down {
+        from {
+          background-position: 0 0;
+        } to {
+          background-position: 0 100vh;
+        }
+      }
 
-      this.svg = this[this.name];
-      this.style.backgroundImage = this.encodedSVGUrl();
-    }
-  });
-</script>
+      @keyframes ac-pattern-scroll-left {
+        from {
+          background-position: 100vw 0;
+        } to {
+          background-position: 0 0;
+        }
+      }
+
+      @keyframes ac-pattern-scroll-right {
+        from {
+          background-position: 0 0;
+        } to {
+          background-position: 100vw 0;
+        }
+      }
+
+      :host {
+        background-repeat: repeat;
+      }
+
+      :host([scroll-direction="down-right"]) {
+        animation: ac-pattern-scroll-down-right 20s linear infinite;
+      }
+
+      :host([scroll-direction="down-left"]) {
+        animation: ac-pattern-scroll-down-left 20s linear infinite;
+      }
+
+      :host([scroll-direction="up-right"]) {
+        animation: ac-pattern-scroll-up-right 20s linear infinite;
+      }
+
+      :host([scroll-direction="up-left"]) {
+        animation: ac-pattern-scroll-up-left 20s linear infinite;
+      }
+
+      :host([scroll-direction="up"]) {
+        animation: ac-pattern-scroll-up 20s linear infinite;
+      }
+
+      :host([scroll-direction="down"]) {
+        animation: ac-pattern-scroll-down 20s linear infinite;
+      }
+
+      :host([scroll-direction="left"]) {
+        animation: ac-pattern-scroll-left 20s linear infinite;
+      }
+
+      :host([scroll-direction="right"]) {
+        animation: ac-pattern-scroll-right 20s linear infinite;
+      }
+    </style>
+    <content></content>
+  </template>
+
+  <script>
+    Polymer({
+      'is': "ac-pattern",
+      behaviors: [
+        AC.Behavior.DynamicSVGGenerator
+      ],
+      properties: {
+        name: {
+          type: String,
+          value: "diagonal-stripe",
+          observer: "_changed"
+        },
+        backgroundColor: { // usually background color
+          type: String,
+          value: "white",
+          observer: "_changed"
+        },
+        foregroundColor: { // usually foreground color
+          type: String,
+          value: "black",
+          observer: "_changed"
+        },
+
+        // auxiliary colors to be used as needed by the pattern
+        auxColorA: {
+          type: String,
+          value: "black",
+          observer: "_changed"
+        },
+        auxColorB: {
+          type: String,
+          value: "black",
+          observer: "_changed"
+        },
+
+        // The pattern can move in a constant direction
+        scrollDirection: {
+          type: String,
+          reflectToAttribute: true
+        }
+      },
+
+      "diagonal-stripe": function svg() {
+        return "" +
+          "<rect width='10' height='10' fill='" + this.backgroundColor + "' />" +
+          "<path d='M-1,1 l2,-2" +
+                   "M0,10 l10,-10" +
+                   "M9,11 l2,-2' stroke='" + this.foregroundColor + "' stroke-width='3' />";
+      },
+
+      "houndstooth": function svg() {
+        return "" +
+          "<rect width='10' height='10' fill='" + this.backgroundColor + "' />" +
+          "<path d='M0 0L4 4' stroke='" + this.foregroundColor + "' fill='" + this.foregroundColor + "' stroke-width='1'/>" +
+          "<path d='M2.5 0L5 2.5L5 5L9 9L5 5L10 5L10 0' stroke='" + this.auxColorA + "' fill='" + this.auxColorA + "' stroke-width='1'/>" +
+          "<path d='M5 10L5 7.5L7.5 10' stroke='" + this.auxColorB + "' fill='" + this.auxColorB + "' stroke-width='1'/>";
+      },
+
+      "subtle-patch": function svg() {
+        return "" +
+          "<rect width='10' height='10' fill='" + this.backgroundColor + "' />" +
+          "<rect x='4' y='4' width='2' height='2' fill='" + this.foregroundColor + "' />";
+      },
+
+      svgAttributes: {width: 10, height: 10},
+      svg: function(){return "";},
+
+      _changed: function _changed() {
+        if (!(this.name && this.backgroundColor && this.foregroundColor && this.auxColorA && this.auxColorB)) return;
+
+        this.svg = this[this.name];
+        this.style.backgroundImage = this.encodedSVGUrl();
+      }
+    });
+  </script>
+</dom-module>

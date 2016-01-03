@@ -8,6 +8,15 @@
         height: 100vh;
         margin: 0;
       }
+
+      body > ac-pattern {
+        position: absolute;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        z-index: -1;
+      }
     </style>
 
     <script type="text/javascript" src="bower_components/webcomponentsjs/webcomponents-lite.min.js"></script>
@@ -16,8 +25,6 @@
   </head>
 
   <body>
-    <ac-scrolling-background direction="down-right">
-      <ac-pattern name="subtle-patch" background-color="#A54E2A" foreground-color="#C17455"></ac-pattern>
-    </ac-scrolling-background>
+    <ac-pattern name="subtle-patch" background-color="#A54E2A" foreground-color="#C17455" scroll-direction="down-right"></ac-pattern>
   </body>
 </html>
