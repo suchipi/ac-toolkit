@@ -65,52 +65,50 @@
         }
       }
 
-      :host, #main {
+      :host, :host ::content ac-pattern  {
         display: block;
 
         width: 100%;
         height: 100%;
       }
 
-      #main {
+      :host ::content ac-pattern  {
         background-repeat: repeat;
       }
 
-      :host([direction="down-right"]) #main {
+      :host([direction="down-right"]) ::content ac-pattern {
         animation: ac-scrolling-background-down-right 20s linear infinite;
       }
 
-      :host([direction="down-left"]) #main {
+      :host([direction="down-left"]) ::content ac-pattern {
         animation: ac-scrolling-background-down-left 20s linear infinite;
       }
 
-      :host([direction="up-right"]) #main {
+      :host([direction="up-right"]) ::content ac-pattern {
         animation: ac-scrolling-background-up-right 20s linear infinite;
       }
 
-      :host([direction="up-left"]) #main {
+      :host([direction="up-left"]) ::content ac-pattern {
         animation: ac-scrolling-background-up-left 20s linear infinite;
       }
 
-      :host([direction="up"]) #main{
+      :host([direction="up"]) ::content ac-pattern {
         animation: ac-scrolling-background-up 20s linear infinite;
       }
 
-      :host([direction="down"]) #main{
+      :host([direction="down"]) ::content ac-pattern {
         animation: ac-scrolling-background-down 20s linear infinite;
       }
 
-      :host([direction="left"]) #main{
+      :host([direction="left"]) ::content ac-pattern {
         animation: ac-scrolling-background-left 20s linear infinite;
       }
 
-      :host([direction="right"]) #main{
+      :host([direction="right"]) ::content ac-pattern {
         animation: ac-scrolling-background-right 20s linear infinite;
       }
     </style>
-    <div id="main" class="ac-patternable">
-      <content></content>
-    </div>
+    <content></content>
   </template>
 
   <script>

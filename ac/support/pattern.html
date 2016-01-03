@@ -1,11 +1,9 @@
-<link rel="import" href="behaviors/dynamic-css-generator.html">
 <link rel="import" href="behaviors/dynamic-svg-generator.html">
 
 <script>
   Polymer({
     'is': "ac-pattern",
     behaviors: [
-      AC.Behavior.DynamicCSSGenerator,
       AC.Behavior.DynamicSVGGenerator
     ],
     properties: {
@@ -67,9 +65,7 @@
       if (!(this.name && this.backgroundColor && this.foregroundColor && this.auxColorA && this.auxColorB)) return;
 
       this.svg = this[this.name];
-      this.defineCSSRuleForChildren(".ac-patternable", {
-        "background-image": this.encodedSVGUrl()
-      });
+      this.style.backgroundImage = this.encodedSVGUrl();
     }
   });
 </script>
