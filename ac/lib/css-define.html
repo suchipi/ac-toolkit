@@ -1,0 +1,12 @@
+<script>
+  if (!document.querySelector("style#css-define")) {
+    var style = document.createElement("style");
+    style.appendChild(document.createTextNode(""));
+    style.id = "css-define";
+    document.head.appendChild(style);
+
+    CSS.define = function define(rule) {
+      style.sheet.insertRule(rule, 0);
+    }
+  }
+</script>

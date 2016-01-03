@@ -1,0 +1,50 @@
+<link rel="import" href="../../lib/css-define.html">
+<link rel="import" href="../../lib/base64.html">
+
+<script>
+  // Dynamic CSS Generators create CSS rules on the fly based on their current properties.
+  // You can use a dynamic CSS generator to create an element that styles its children
+  // based on its current properties. To do so, use the `defineCSSRuleForChildren` method:
+
+  // this.defineCSSRuleForChildren(".checked", {
+  //   "background-color": "red"
+  // });
+
+  // When this.defineCSSRuleForChildren is called, three things happen:
+  // 1. The element's Polymer properties are collected into what is called a "Dynamic CSS ID"
+  // 2. This Dynamic CSS ID is stored on a data attribute on the element, data-dynamic-css-id
+  // 3. A CSS rule is created that matches scoped children of all elements
+  //    with the same tagName and data-dynamic-css-id as this one.
+
+  // These CSS rules will not change when the properties of your element change. For this reason,
+  // It is suggested that `defineCSSRuleForChildren` is called within an observer function.
+
+  AC.Behavior.DynamicCSSGenerator = {
+    defineCSSRuleForChildren: function defineCSSRuleForChildren(scope, ruleObject) {
+      this.updateDynamicCSSId();
+      var id = "[data-dynamic-css-id=\"" + this.getAttribute("data-dynamic-css-id") + "\"]"
+
+      var rulesString = "";
+      for (var key in ruleObject) {
+        var value = ruleObject[key];
+        rulesString += key + ":" + value + ";";
+      }
+
+      CSS.define(this.tagName + id + " " + scope + "{" + rulesString + "}");
+    },
+
+    dynamicCSSId: function dynamicCSSId() {
+      var self = this;
+      var idComponents = [];
+      Object.keys(this.properties).sort().forEach(function(key){
+        var value = self[key];
+        idComponents.push(key + "=" + JSON.stringify(value));
+      });
+      return Base64.encode(idComponents.join(","));
+    },
+
+    updateDynamicCSSId: function updateDynamicCSSId() {
+      this.setAttribute("data-dynamic-css-id", this.dynamicCSSId());
+    }
+  };
+</script>

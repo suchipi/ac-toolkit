@@ -1,0 +1,25 @@
+<link rel="import" href="../../lib/svg-tools.html">
+
+<script>
+  // A Dynamic SVG Generator is expected to provide its own `svg` method that returns
+  // an SVG document fragment as a string. It uses this to provide some convenience methods.
+  // It may also provide an optional `svgAttributes` property that will be applied to the
+  // generated wrapping svg tag (width, height, etc).
+
+  AC.Behavior.DynamicSVGGenerator = {
+    wrappedSVG: function wrappedSVG() {
+      var svgAttributes = this.svgAttributes;
+      if (!svgAttributes) svgAttributes = {};
+
+      return SVG.wrap(svgAttributes, this.svg());
+    },
+
+    encodedSVG: function encodedSVG() {
+      return SVG.encode(this.wrappedSVG());
+    },
+
+    encodedSVGUrl: function encodedSVGUrl() {
+      return "url(\"" + this.encodedSVG() + "\")";
+    }
+  };
+</script>

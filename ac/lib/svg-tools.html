@@ -1,0 +1,23 @@
+<link rel="import" href="../lib/base64.html">
+
+<script>
+  if (typeof SVG === "undefined") {
+    SVG = {};
+  }
+
+  SVG.encode = function encode(str) {
+    return "data:image/svg+xml;base64," + Base64.encode(str);
+  }
+
+  SVG.wrap = function wrap(options, str) {
+    var attributes = "";
+    for (var key in options) {
+      var value = options[key];
+      attributes += key + "='" + value + "' ";
+    }
+
+    return "<svg xmlns='http://www.w3.org/2000/svg' " + attributes + ">" +
+             str +
+           "</svg>";
+  }
+</script>

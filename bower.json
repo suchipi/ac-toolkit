@@ -1,0 +1,30 @@
+{
+  "name": "ac-toolkit",
+  "authors": [
+    "Stephen Scott <me@suchipi.com>"
+  ],
+  "description": "Elements that assist in creating animal-crossing-like UI experiences",
+  "main": "dist.html",
+  "moduleType": [],
+  "keywords": [
+    "element",
+    "polymer",
+    "animal",
+    "crossing",
+    "design"
+  ],
+  "license": "MIT",
+  "homepage": "",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "polymer": "~1.2.3",
+    "webcomponentsjs": "~0.7.20",
+    "js-base64": "~2.1.9"
+  }
+}
