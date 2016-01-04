@@ -1,4 +1,5 @@
 <link rel="import" href="behaviors/dynamic-svg-generator.html">
+<link rel="import" href="patterns/index.html">
 
 <dom-module id="ac-pattern">
   <template>
@@ -72,35 +73,35 @@
       }
 
       :host([scroll-direction="down-right"]) {
-        animation: ac-pattern-scroll-down-right 20s linear infinite;
+        animation: ac-pattern-scroll-down-right 30s linear infinite;
       }
 
       :host([scroll-direction="down-left"]) {
-        animation: ac-pattern-scroll-down-left 20s linear infinite;
+        animation: ac-pattern-scroll-down-left 30s linear infinite;
       }
 
       :host([scroll-direction="up-right"]) {
-        animation: ac-pattern-scroll-up-right 20s linear infinite;
+        animation: ac-pattern-scroll-up-right 30s linear infinite;
       }
 
       :host([scroll-direction="up-left"]) {
-        animation: ac-pattern-scroll-up-left 20s linear infinite;
+        animation: ac-pattern-scroll-up-left 30s linear infinite;
       }
 
       :host([scroll-direction="up"]) {
-        animation: ac-pattern-scroll-up 20s linear infinite;
+        animation: ac-pattern-scroll-up 30s linear infinite;
       }
 
       :host([scroll-direction="down"]) {
-        animation: ac-pattern-scroll-down 20s linear infinite;
+        animation: ac-pattern-scroll-down 30s linear infinite;
       }
 
       :host([scroll-direction="left"]) {
-        animation: ac-pattern-scroll-left 20s linear infinite;
+        animation: ac-pattern-scroll-left 30s linear infinite;
       }
 
       :host([scroll-direction="right"]) {
-        animation: ac-pattern-scroll-right 20s linear infinite;
+        animation: ac-pattern-scroll-right 30s linear infinite;
       }
     </style>
     <content></content>
@@ -118,12 +119,12 @@
           value: "diagonal-stripe",
           observer: "_changed"
         },
-        backgroundColor: { // usually background color
+        backgroundColor: {
           type: String,
-          value: "white",
+          value: "rgba(0,0,0,0)",
           observer: "_changed"
         },
-        foregroundColor: { // usually foreground color
+        foregroundColor: {
           type: String,
           value: "black",
           observer: "_changed"
@@ -145,39 +146,29 @@
         scrollDirection: {
           type: String,
           reflectToAttribute: true
+        },
+
+        // Pattern scaling
+        scale: {
+          type: Number,
+          value: 10,
+          observer: "_changed"
         }
       },
 
-      "diagonal-stripe": function svg() {
-        return "" +
-          "<rect width='10' height='10' fill='" + this.backgroundColor + "' />" +
-          "<path d='M-1,1 l2,-2" +
-                   "M0,10 l10,-10" +
-                   "M9,11 l2,-2' stroke='" + this.foregroundColor + "' stroke-width='3' />";
+      rel: function rel(units) {
+        return (this.scale * units) / 10;
       },
 
-      "houndstooth": function svg() {
-        return "" +
-          "<rect width='10' height='10' fill='" + this.backgroundColor + "' />" +
-          "<path d='M0 0L4 4' stroke='" + this.foregroundColor + "' fill='" + this.foregroundColor + "' stroke-width='1'/>" +
-          "<path d='M2.5 0L5 2.5L5 5L9 9L5 5L10 5L10 0' stroke='" + this.auxColorA + "' fill='" + this.auxColorA + "' stroke-width='1'/>" +
-          "<path d='M5 10L5 7.5L7.5 10' stroke='" + this.auxColorB + "' fill='" + this.auxColorB + "' stroke-width='1'/>";
-      },
-
-      "subtle-patch": function svg() {
-        return "" +
-          "<rect width='10' height='10' fill='" + this.backgroundColor + "' />" +
-          "<rect x='4' y='4' width='2' height='2' fill='" + this.foregroundColor + "' />";
-      },
-
-      svgAttributes: {width: 10, height: 10},
       svg: function(){return "";},
+      svgAttributes: {width: 10, height: 10},
 
       _changed: function _changed() {
-        if (!(this.name && this.backgroundColor && this.foregroundColor && this.auxColorA && this.auxColorB)) return;
+        if (!(this.name && this.backgroundColor && this.foregroundColor && this.auxColorA && this.auxColorB && this.scale)) return;
 
-        this.svg = this[this.name];
-        this.style.backgroundImage = this.encodedSVGUrl();
+        var svg = AC.Pattern.compile(this.name, this);
+        var svgAttributes = {width: this.scale, height: this.scale};
+        this.style.backgroundImage = this.encodedSVGUrl(svg, svgAttributes);
       }
     });
   </script>

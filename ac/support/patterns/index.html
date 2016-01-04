@@ -1,0 +1,27 @@
+<link rel="import" href="../../lib/snap.svg.html">
+
+<script>
+  AC.Pattern = {
+    compile: function(name, context) {
+      var s = Snap(document.createElementNS("http://www.w3.org/2000/svg", "svg"));
+      var pattern = AC.Pattern.list[name];
+      if (pattern)
+        pattern.call(context, s);
+      else
+        throw new Error("Tried to create a pattern named " + name + ", but no such pattern is defined");
+      return s.innerSVG();
+    },
+
+    list: {},
+
+    define: function(name, patternFunc) {
+      AC.Pattern.list[name] = patternFunc;
+    }
+  };
+</script>
+
+<link rel="import" href="checkerboard.html">
+<link rel="import" href="diagonal-stripe.html">
+<link rel="import" href="houndstooth.html">
+<link rel="import" href="plaid-simple.html">
+<link rel="import" href="subtle-patch.html">

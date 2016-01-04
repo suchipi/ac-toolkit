@@ -25,6 +25,7 @@
   "dependencies": {
     "polymer": "~1.2.3",
     "webcomponentsjs": "~0.7.20",
-    "js-base64": "~2.1.9"
+    "js-base64": "~2.1.9",
+    "Snap.svg": "adobe-webplatform/Snap.svg#0.4.1"
   }
 }

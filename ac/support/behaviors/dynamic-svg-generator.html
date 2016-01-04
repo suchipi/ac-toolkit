@@ -1,25 +1,48 @@
-<link rel="import" href="../../lib/svg-tools.html">
+<link rel="import" href="../../lib/base64.html">
 
 <script>
-  // A Dynamic SVG Generator is expected to provide its own `svg` method that returns
-  // an SVG document fragment as a string. It uses this to provide some convenience methods.
-  // It may also provide an optional `svgAttributes` property that will be applied to the
-  // generated wrapping svg tag (width, height, etc).
-
-  AC.Behavior.DynamicSVGGenerator = {
-    wrappedSVG: function wrappedSVG() {
-      var svgAttributes = this.svgAttributes;
-      if (!svgAttributes) svgAttributes = {};
-
-      return SVG.wrap(svgAttributes, this.svg());
-    },
-
-    encodedSVG: function encodedSVG() {
-      return SVG.encode(this.wrappedSVG());
-    },
-
-    encodedSVGUrl: function encodedSVGUrl() {
-      return "url(\"" + this.encodedSVG() + "\")";
+  (function(){
+    var SVG = {};
+    SVG.encode = function encode(str) {
+      return "data:image/svg+xml;base64," + Base64.encode(str);
     }
-  };
+
+    SVG.wrap = function wrap(options, str) {
+      var attributes = "";
+      for (var key in options) {
+        var value = options[key];
+        attributes += key + "='" + value + "' ";
+      }
+
+      return "<svg xmlns='http://www.w3.org/2000/svg' " + attributes + ">" +
+               str +
+             "</svg>";
+    }
+
+    // Provides some convenience methods for generating common SVG output formats from svg document fragments.
+    //
+    // All methods expect an svg string fragment and (optionally) an Object containing
+    // attributes and their values to apply to the wrapping svg tag that will be put around
+    // the passed svg fragment.
+    AC.Behavior.DynamicSVGGenerator = {
+      // Raw svg document string, eg <svg ...>...</svg>
+      wrappedSVG: function wrappedSVG(svg, svgAttributes) {
+        svg = svg || "";
+        svgAttributes = svgAttributes || {};
+
+        return SVG.wrap(svgAttributes, svg);
+      },
+
+      // Base64 Data URL Format, eg data:image/svg+xml;base64,...
+      encodedSVG: function encodedSVG(svg, svgAttributes) {
+        return SVG.encode(this.wrappedSVG(svg, svgAttributes));
+      },
+
+      // CSS Data URL format, eg url("data:image/svg+xml;base64,...")
+      encodedSVGUrl: function encodedSVGUrl(svg, svgAttributes) {
+        return "url(\"" + this.encodedSVG(svg, svgAttributes) + "\")";
+      }
+    };
+
+  }).call(this)
 </script>

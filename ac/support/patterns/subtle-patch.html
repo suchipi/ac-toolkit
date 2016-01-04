@@ -1,0 +1,17 @@
+<script>
+  AC.Pattern.define("subtle-patch", function(s){
+    s.rect().attr({
+      width: this.rel(10),
+      height: this.rel(10),
+      fill: this.backgroundColor
+    });
+
+    s.rect().attr({
+      x: this.rel(4),
+      y: this.rel(4),
+      width: this.rel(2),
+      height: this.rel(2),
+      fill: this.foregroundColor
+    });
+  });
+</script>

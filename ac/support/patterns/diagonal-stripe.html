@@ -1,0 +1,18 @@
+<script>
+  AC.Pattern.define("diagonal-stripe", function(s){
+    s.rect().attr({
+      width: this.rel(10),
+      height: this.rel(10),
+      fill: this.backgroundColor
+    });
+
+    s.path("" +
+      "M" + this.rel(-1) + "," + this.rel(1) + " l" + this.rel(2) + "," + this.rel(-2) +
+      "M" + this.rel(0) + "," + this.rel(10) + " l" + this.rel(10) + "," + this.rel(-10) +
+      "M" + this.rel(9) + "," + this.rel(11) + " l" + this.rel(2) + "," + this.rel(-2)
+    ).attr({
+      stroke: this.foregroundColor,
+      strokeWidth: this.rel(3)
+    });
+  });
+</script>

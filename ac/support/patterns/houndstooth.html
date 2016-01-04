@@ -1,0 +1,42 @@
+<script>
+  AC.Pattern.define("houndstooth", function(s){
+    s.rect().attr({
+      width: this.rel(10),
+      height: this.rel(10),
+      fill: this.backgroundColor
+    });
+
+    s.path("" +
+      "M" + this.rel(0) + "," + this.rel(0) +
+      "L" + this.rel(4) + "," + this.rel(4)
+    ).attr({
+      stroke: this.foregroundColor,
+      fill: this.foregroundColor,
+      strokeWidth: this.rel(1)
+    });
+
+    s.path("" +
+      "M" + this.rel(2.5) + "," + this.rel(0) +
+      "L" + this.rel(5) + "," + this.rel(2.5) +
+      "L" + this.rel(5) + "," + this.rel(5) +
+      "L" + this.rel(9) + "," + this.rel(9) +
+      "L" + this.rel(5) + "," + this.rel(5) +
+      "L" + this.rel(10) + "," + this.rel(5) +
+      "L" + this.rel(10) + "," + this.rel(0)
+    ).attr({
+      stroke: this.auxColorA,
+      fill: this.auxColorA,
+      strokeWidth: this.rel(1)
+    });
+
+    s.path("" +
+      "M" + this.rel(5) + "," + this.rel(10) +
+      "L" + this.rel(5) + "," + this.rel(7.5) +
+      "L" + this.rel(7.5) + "," + this.rel(10)
+    ).attr({
+      stroke: this.auxColorB,
+      fill: this.auxColorB,
+      strokeWidth: this.rel(1)
+    });
+  });
+</script>

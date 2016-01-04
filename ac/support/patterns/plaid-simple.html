@@ -1,0 +1,25 @@
+<script>
+  AC.Pattern.define("plaid-simple", function(s){
+    s.rect().attr({
+      width: this.rel(10),
+      height: this.rel(10),
+      fill: this.backgroundColor
+    });
+
+    s.rect().attr({
+      x: this.rel(0),
+      y: this.rel(0),
+      width: this.rel(4),
+      height: this.rel(10),
+      fill: this.foregroundColor
+    });
+
+    s.rect().attr({
+      x: this.rel(4),
+      y: this.rel(0),
+      width: this.rel(6),
+      height: this.rel(4),
+      fill: this.foregroundColor
+    });
+  });
+</script>

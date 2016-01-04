@@ -1,0 +1,23 @@
+<script>
+  AC.Pattern.define("checkerboard", function(s){
+    s.rect().attr({
+      width: this.rel(10),
+      height: this.rel(10),
+      fill: this.backgroundColor
+    });
+
+    s.rect().attr({
+      width: this.rel(5),
+      height: this.rel(5),
+      fill: this.foregroundColor
+    });
+
+    s.rect().attr({
+      x: this.rel(5),
+      y: this.rel(5),
+      width: this.rel(5),
+      height: this.rel(5),
+      fill: this.foregroundColor
+    });
+  });
+</script>
