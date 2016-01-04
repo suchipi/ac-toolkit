@@ -1,0 +1,61 @@
+<link rel="import" href="pattern.html">
+
+<dom-module id="ac-floating-panel">
+  <template>
+    <style>
+      :host {
+        font-family: "ac-toolkit";
+
+        line-height: 1.5em;
+        height: 1.3em;
+        padding: 0.4em;
+        position: relative;
+        display: inline-block;
+        text-align: center;
+      }
+
+      #pattern {
+        display: block;
+        border-radius: 45%;
+        position: absolute;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        z-index: -1;
+
+        border: 0.2em solid #F9FFD4;
+        box-sizing: border-box;
+        box-shadow: 0.05em 0.1em 0.2em rgba(0,0,0,0.5);
+
+        animation-duration: 40s;
+      }
+    </style>
+
+      <ac-pattern id="pattern"
+        name="checkerboard"
+        scale="7"
+        background-color="{{primaryColor}}"
+        foreground-color="{{secondaryColor}}"
+      ></ac-pattern>
+    <content>
+    </content>
+  </template>
+</style>
+
+  <script>
+    Polymer({
+      'is': "ac-floating-panel",
+      properties: {
+        primaryColor: {
+          type: String,
+          value: "#2AF02A"
+        },
+        secondaryColor: {
+          type: String,
+          value: "#3BDB3B"
+        }
+      }
+    });
+  </script>
+</dom-module>
