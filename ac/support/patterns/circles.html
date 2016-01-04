@@ -1,0 +1,36 @@
+<script>
+  AC.Pattern.define("circles", function(s){
+    s.rect().attr({
+      width: this.rel(10),
+      height: this.rel(10),
+      fill: this.backgroundColor
+    });
+
+    var radius = this.rel(2);
+
+    // top left
+    s.circle(this.rel(0), this.rel(0), radius).attr({
+      fill: this.foregroundColor
+    });
+
+    // top right
+    s.circle(this.rel(10), this.rel(0), radius).attr({
+      fill: this.foregroundColor
+    });
+
+    // bottom left
+    s.circle(this.rel(0), this.rel(10), radius).attr({
+      fill: this.foregroundColor
+    });
+
+    // bottom right
+    s.circle(this.rel(10), this.rel(10), radius).attr({
+      fill: this.foregroundColor
+    });
+
+    // center
+    s.circle(this.rel(5), this.rel(5), radius).attr({
+      fill: this.foregroundColor
+    });
+  });
+</script>

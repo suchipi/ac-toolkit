@@ -156,6 +156,8 @@
         }
       },
 
+      // Use this in pattern definitions to calculate numbers relative
+      // to the element's scale. "Normalized" scale is 10 high and 10 wide.
       rel: function rel(units) {
         return (this.scale * units) / 10;
       },
